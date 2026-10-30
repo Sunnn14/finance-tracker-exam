@@ -10,11 +10,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.personalfinancetracker.ui.FinanceViewModel
 
-import androidx.compose.ui.platform.LocalContext
-import androidx.work.WorkManager
-import androidx.work.OneTimeWorkRequestBuilder
-import com.example.personalfinancetracker.worker.ReminderWorker
-
 @Composable
 fun SettingsScreen(
  vm: FinanceViewModel,
@@ -23,8 +18,6 @@ fun SettingsScreen(
 
  // 1. ViewModel-ээс хадгалагдсан тохиргоог авах
  val filter by vm.filter.collectAsState()
-
- val context = LocalContext.current
 
  // 2. Хэрэглэгчийн сонгосон утгыг түр хадгалах
  var selected by remember(filter) {
@@ -99,22 +92,6 @@ fun SettingsScreen(
     modifier = Modifier.fillMaxWidth()
    ) {
     Text("ХАДГАЛАХ")
-   }
-
-   // Мэдэгдлийг шууд турших товч
-   Button(
-    onClick = {
-
-     val testWork =
-      OneTimeWorkRequestBuilder<ReminderWorker>()
-       .build()
-
-     WorkManager.getInstance(context)
-      .enqueue(testWork)
-    },
-    modifier = Modifier.fillMaxWidth()
-   ) {
-    Text("МЭДЭГДЭЛ ТУРШИХ")
    }
 
   }
